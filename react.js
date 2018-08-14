@@ -55,6 +55,12 @@ class App extends React.Component {
     }
     this.handleMouseUp = this.handleMouseUp.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.playSound = this.playSound.bind(this);
+  }
+  playSound(idSound) {
+    let myAudio = document.getElementById(idSound);
+    myAudio.autoplay = true;
+    myAudio.load();
   }
   handleMouseUp(event) { 
     event.preventDefault();
@@ -65,9 +71,7 @@ class App extends React.Component {
       name: arr1[1],      
       srcSound: arr1[2]
     })
-    let myAudio = document.getElementById(event.target.value[0]);
-    myAudio.autoplay = true;
-    myAudio.load();
+    this.playSound(event.target.value[0]);
   }
   handleKeyUp(e) {
     e.preventDefault();
