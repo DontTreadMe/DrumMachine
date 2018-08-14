@@ -6,7 +6,6 @@ body {
   background-color: LightCyan;
 }
 #drum-machine {
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #FFB5A0;
@@ -32,6 +31,7 @@ body {
   cursor: pointer;
 }
 #display {
+  display: inline-block;
   width: $myWidyh*3;
   height: $myWidyh;
   background-color: #9FB4CC;
