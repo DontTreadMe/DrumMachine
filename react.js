@@ -103,7 +103,7 @@ class App extends React.Component {
       this.playSound();
     }
   }
-  
+    
   render() {
     const arrToRender = soundLiblary.map(x => {
       return (
@@ -113,7 +113,7 @@ class App extends React.Component {
           value={`${x.drumKey},${x.name},${x.srcSound}`} 
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.playSound}>
-          <audio id={x.drumKey} className="clip">
+          <audio id={x.drumKey} className="clip" preload="auto">
             <source src={x.srcSound} type="audio/mpeg" />
           </audio>
           {x.drumKey}
@@ -122,9 +122,10 @@ class App extends React.Component {
     });
     return (
       <div id="drum-machine">
+        <VolumeSound />
         <Display name={this.state.name} />
         <div id="keyBoard">
-        {arrToRender}
+          {arrToRender}
         </div>
       </div>
     );
@@ -135,6 +136,19 @@ const Display = (props) => {
   return (
     <div id="display">
       {props.name}
+    </div>
+  );
+}
+
+const VolumeSound = (props) => {
+  return (
+    <div>
+      <input id="volumeSound" 
+        type="range" 
+        value={props.volumeSound} 
+        min="0" max="1" 
+        step=".1" 
+        orient="vertical" />
     </div>
   );
 }
