@@ -53,35 +53,39 @@ class App extends React.Component {
       name: '',
       srcSound: ''
     }
-    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.playSound = this.playSound.bind(this);
   }
-  playSound(idSound) {
-    let myAudio = document.getElementById(idSound);
+  playSound() {
+    const myAudio = document.getElementById(this.state.drumKey);
     myAudio.autoplay = true;
     myAudio.load();
   }
-  handleMouseUp(event) { 
+  handleMouseDown(event) { 
     event.preventDefault();
-    let arr1 = event.target.value.split(",");
-    console.log(event.target.value);
+    const arr1 = event.target.value.split(",");
+    //console.log(event.target.value);
     this.setState({
       drumKey: arr1[0],
       name: arr1[1],      
       srcSound: arr1[2]
-    })
-    this.playSound(event.target.value[0]);
+    });
   }
-  handleKeyUp(e) {
-    e.preventDefault();
-    console.log(e.target.value);
+  handleKeyUp(event) {
+    event.preventDefault();
+    console.log(event.target.value);
   }
   
   render() {
     const arrToRender = arr.map(x => {
       return (
-        <button key={x.drumKey} className="drum-pad" onMouseUp={this.handleMouseUp} value={`${x.drumKey},${x.name},${x.srcSound}`} >
+        <button           
+          key={x.drumKey} 
+          className="drum-pad" 
+          value={`${x.drumKey},${x.name},${x.srcSound}`} 
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.playSound}>
           <audio id={x.drumKey} className="clip">
             <source src={x.srcSound} type="audio/mpeg" />
           </audio>
