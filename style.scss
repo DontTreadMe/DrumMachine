@@ -5,6 +5,15 @@ $myWidyh: 120px;
 body {
   background-color: LightCyan;
 }
+#drum-machine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFB5A0;
+  width: 50%;
+  margin: 1em auto;
+  padding: 1em;
+}
 #keyBoard {
   display: grid;
   grid-template-columns: $myWidyh $myWidyh $myWidyh;
@@ -21,4 +30,15 @@ body {
 }
 .drum-pad:hover {
   cursor: pointer;
+}
+#display {
+  width: $myWidyh*3;
+  height: $myWidyh;
+  background-color: #9FB4CC;
+  font-size: 2em;
+  padding: 1em;
+}
+.drum-pad {
+  font-size: 2em;
+  color: black;
 }
