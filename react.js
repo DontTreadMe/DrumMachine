@@ -138,17 +138,20 @@ class App extends React.Component {
     });
     
     return (
-      <div id="drum-machine">
-         <div className="slider-wrapper">
-            <input id="volumeSound" 
-              type="range" 
-              value={this.state.volumeSound} 
-              min="0" max="1" 
-              step="0.1" onChange={this.handleChange} />
-        </div>
-        <Display name={this.state.name} />
+      <div id="drum-machine">        
         <div id="keyBoard">
           {arrToRender}
+        </div>
+        <div id="controls">
+          <Display name={this.state.name} volumeSound={this.state.volumeSound} />
+          <div className="slider-wrapper">
+            <input id="volumeSound" 
+            type="range" 
+            value={this.state.volumeSound} 
+            min="0" max="1" 
+            step="0.1" onChange={this.handleChange} /> 
+          </div>        
+          
         </div>
       </div>
     );
