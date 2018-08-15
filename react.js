@@ -54,6 +54,9 @@ const soundLiblary =
     srcSound: 'http://static1.grsites.com/archive/sounds/cartoon/cartoon003.mp3'
   }];
 
+const activ = {backgroundColor: '#E1E0FF', boxShadow: 'none'};
+const inactiv = {backgroundColor: '#496F99', boxShadow: '3px 3px 5px black'};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -61,18 +64,35 @@ class App extends React.Component {
       drumKey: '',
       name: '',
       srcSound: '',
-      volumeSound: '0.3'
+      volumeSound: '0.3',
+      stylePud: inactiv
     }
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.playSound = this.playSound.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.setStyle = this.setStyle.bind(this);
   }
   
-  playSound() {
+  setStyle(element) {
+    if (this.state.stylePud === inactiv) {
+      this.setState({
+        stylePud: activ
+      });
+    } else {
+      this.setState({
+        stylePud: inactiv
+      });
+    }     
+  }
+  
+  playSound() {    
     const myAudio = document.getElementById(this.state.drumKey);
     myAudio.autoplay = true;
     myAudio.load();
+    
+    this.setStyle(this.state.name);
+    setTimeout(() => this.setStyle(this.state.name), 100);
   }
   
   handleMouseDown(event) { 
@@ -124,7 +144,9 @@ class App extends React.Component {
       return (
         <button           
           key={x.drumKey} 
+          id={x.name} 
           className="drum-pad" 
+          style={this.state.stylePud} 
           value={`${x.drumKey},${x.name},${x.srcSound}`} 
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.playSound}>
@@ -148,7 +170,7 @@ class App extends React.Component {
             type="range" 
             value={this.state.volumeSound} 
             min="0" max="1" 
-            step="0.05" 
+            step="0.01" 
             onChange={this.handleChange} /> 
           </div>          
         </div>
