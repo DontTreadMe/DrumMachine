@@ -1,5 +1,5 @@
-const soundLiblary = [
-  {
+const soundLiblary = 
+  [{
     code: 81,
     drumKey: 'Q',
     name: 'bang',
@@ -52,8 +52,7 @@ const soundLiblary = [
     drumKey: 'C',
     name: 'kiss',
     srcSound: 'http://static1.grsites.com/archive/sounds/cartoon/cartoon003.mp3'
-  }
-];
+  }];
 
 class App extends React.Component {
   constructor(props) {
@@ -149,9 +148,9 @@ class App extends React.Component {
             type="range" 
             value={this.state.volumeSound} 
             min="0" max="1" 
-            step="0.1" onChange={this.handleChange} /> 
-          </div>        
-          
+            step="0.05" 
+            onChange={this.handleChange} /> 
+          </div>          
         </div>
       </div>
     );
@@ -161,11 +160,11 @@ class App extends React.Component {
 const Display = (props) => {
   return (
     <div id="display">
-      {props.name}
+      <div> <i>volume: {Math.round(props.volumeSound * 100)}</i></div>
+      <hr />
+      <div> <i>track: {props.name} </i></div>
     </div>
   );
 }
-
-
 
 ReactDOM.render(<App />, document.getElementById('root'));
