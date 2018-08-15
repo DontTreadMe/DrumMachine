@@ -6,11 +6,9 @@ body {
   background-color: LightCyan;
 }
 #drum-machine {
-  justify-content: center;
-  align-items: center;
-  background-color: #FFB5A0;
-  width: 50%;
-  margin: 1em auto;
+  background-color: #A6D2E3;
+  width: $myWidyh*4;
+  margin: 2em auto;
   padding: 1em;
 }
 #keyBoard {
@@ -31,14 +29,35 @@ body {
   cursor: pointer;
 }
 #display {
-  display: inline-block;
-  width: $myWidyh*3;
+  display: block;
+  margin: auto;
+  text-align: center;
+  width: $myWidyh*3+20px;
   height: $myWidyh;
   background-color: #9FB4CC;
   font-size: 2em;
-  padding: 1em;
+  padding: 1.2em;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 .drum-pad {
   font-size: 2em;
   color: black;
+}
+/*#volumeSound {
+  -webkit-appearance: slider-vertical;
+  writing-mode: bt-lr;
+}*/
+.slider-wrapper {
+  display: inline-block;
+  width: 20px;
+  height: 150px;
+  padding: 0;
+}
+.slider-wrapper input {
+  width: 150px;
+  height: 20px;
+  margin: 0;
+  transform-origin: 75px 75px;
+  transform: rotate(-90deg);
 }

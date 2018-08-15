@@ -61,11 +61,13 @@ class App extends React.Component {
     this.state = {      
       drumKey: '',
       name: '',
-      srcSound: ''
+      srcSound: '',
+      volumeSound: '0.3'
     }
     this.handleMouseDown = this.handleMouseDown.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.playSound = this.playSound.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   
   playSound() {
@@ -98,13 +100,27 @@ class App extends React.Component {
       this.setState({
         drumKey: arrForSet[0].drumKey,
         name: arrForSet[0].name,      
-        srcSound: arrForSet[0].srcSound   
+        srcSound: arrForSet[0].srcSound
       });
       this.playSound();
     }
   }
   
+  handleChange(event) {
+    this.setState({
+      volumeSound: event.target.value
+    });
+    
+  }
+    
   render() {
+    
+    const aud = document.getElementsByClassName("clip");
+    for (let i = 0; i < aud.length; i++) {
+      aud[i].volume = this.state.volumeSound;
+    }
+    
+    
     const arrToRender = soundLiblary.map(x => {
       return (
         <button           
@@ -113,18 +129,26 @@ class App extends React.Component {
           value={`${x.drumKey},${x.name},${x.srcSound}`} 
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.playSound}>
-          <audio id={x.drumKey} className="clip">
+          <audio id={x.drumKey} className="clip" preload="auto">
             <source src={x.srcSound} type="audio/mpeg" />
           </audio>
           {x.drumKey}
         </button>
       );        
     });
+    
     return (
       <div id="drum-machine">
+         <div className="slider-wrapper">
+            <input id="volumeSound" 
+              type="range" 
+              value={this.state.volumeSound} 
+              min="0" max="1" 
+              step="0.1" onChange={this.handleChange} />
+        </div>
         <Display name={this.state.name} />
         <div id="keyBoard">
-        {arrToRender}
+          {arrToRender}
         </div>
       </div>
     );
@@ -138,5 +162,7 @@ const Display = (props) => {
     </div>
   );
 }
+
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
