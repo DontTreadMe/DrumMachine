@@ -43,12 +43,12 @@ body {
 }
 #display {
   margin: auto;
-  text-align: center;
+  text-align: left;
   width: $myWidyh*2;
-  height: $myWidyh;
+  height: $myWidyh/1.1;
   background-color: #9FB4CC;
-  font-size: 2em;
-  padding: 1.2em;
+  font-size: 1.2em;
+  padding: 1em;
   border: 1px solid black;
   border-radius: 5px;
   margin: 10px;
