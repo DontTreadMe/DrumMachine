@@ -11,6 +11,8 @@ body {
   width: $myWidyh*6;
   margin: 2em auto;
   padding: 1em;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 #keyBoard {
   display: grid;
@@ -21,12 +23,13 @@ body {
 }
 .drum-pad {  
   height: $myWidyh/2;
+  line-height: $myWidyh/2;
   background-color: #496F99;
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
   box-shadow: 3px 3px 5px black;
-  font-size: 2em;
+  font-size: 1.5em;
   color: black;
 }
 .drum-pad:hover {
@@ -58,10 +61,10 @@ body {
 i {
   font-style: italic;
 }
-/*.slider-wrapper input {
-  width: 150px;
+#power {
+  width: 20px;
   height: 20px;
-  margin: 0;
-  transform-origin: 75px 75px;
-  transform: rotate(-90deg);
-}*/
+  border: 3px solid grey;
+  border-radius: 50%;
+  right: 0;
+}
