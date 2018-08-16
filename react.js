@@ -67,12 +67,13 @@ class NumPad extends React.Component {
   playSound() {
     const myAudio = document.getElementById(this.props.symbol);
     myAudio.currentTyme = 0;
+    myAudio.volume = this.props.volumeSound;
     myAudio.play();
     this.handleStyle();
   }
   handleStyle() {
     this.setState({pudStyle: activ});
-    setTimeout(() => this.setState({pudStyle: inactiv}), 100); //---NB---
+    setTimeout(() => this.setState({pudStyle: inactiv}), 100);
   }
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeyDown);
@@ -98,7 +99,7 @@ class KeyBoard extends React.Component {
   
   render() {
     const arrToRender = soundLiblary.map(x => 
-    <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} />
+    <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} volumeSound={this.props.volumeSound} />
     );
     return (
       <div id="keyBoard">
@@ -107,6 +108,21 @@ class KeyBoard extends React.Component {
     );
   }
 }
+
+const Display = (props) => {
+  return (
+    <div id="display">
+      <div> 
+        <i>volume: {Math.round(props.volumeSound * 100)}</i>
+      </div>
+      <hr />
+      <div> 
+        <i>track: {props.name} </i>
+      </div>
+    </div>
+  );
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -114,11 +130,28 @@ class App extends React.Component {
       name: '',
       volumeSound: '0.3'
     }
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      volumeSound: event.target.value
+    });    
   }
   render() {
     return (
       <div id="drum-machine">
-        <KeyBoard />
+        <KeyBoard volumeSound={this.state.volumeSound} />
+        <div id="controls">
+          <Display volumeSound={this.state.volumeSound} name={this.state.name} />
+          <div className="slider-wrapper">
+              <input id="volumeSound" 
+              type="range" 
+              value={this.state.volumeSound} 
+              min="0" max="1" 
+              step="0.01" 
+              onChange={this.handleChange} /> 
+            </div> 
+          </div>
       </div>
     );
   }
