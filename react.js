@@ -125,27 +125,43 @@ const Display = (props) => {
   );
 }
 
+const Power = (props) => {
+  const powerOn = {backgroundColor: '#00ff00'};
+  const powerOff = {backgroundColor: '#000'};
+  let powerStyle;
+  props.power ? powerStyle = powerOn : powerStyle = powerOff
+  return (
+    <div id="power" onClick={props.handlePower} style={powerStyle} />
+  );
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
-      volumeSound: '0.3'
+      volumeSound: '0.3',
+      power: true
     }
     this.handleChangeVolume = this.handleChangeVolume.bind(this);
     this.changeName = this.changeName.bind(this);
+    this.handlePower = this.handlePower.bind(this);
   }
   handleChangeVolume(event) {
-    this.setState({volumeSound: event.target.value});    
+    this.setState({volumeSound: event.target.value});
   }
   changeName(value) {
     this.setState({name: value})
+  }
+  handlePower() {
+    this.setState({power: !this.state.power});
   }
   render() {
     return (
       <div id="drum-machine">
         <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} />
         <div id="controls">
+          <Power handlePower={this.handlePower} power={this.state.power} />
           <Display volumeSound={this.state.volumeSound} name={this.state.name} />
           <div className="slider-wrapper">
               <input id="volumeSound" 
