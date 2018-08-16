@@ -64,12 +64,13 @@ class NumPad extends React.Component {
       this.playSound();
     }
   }
-  playSound() {
+  playSound() {    
     const myAudio = document.getElementById(this.props.symbol);
     myAudio.currentTyme = 0;
     myAudio.volume = this.props.volumeSound;
     myAudio.play();
     this.handleStyle();
+    this.props.changeName(this.props.name);    
   }
   handleStyle() {
     this.setState({pudStyle: activ});
@@ -81,6 +82,7 @@ class NumPad extends React.Component {
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyDown);
   }
+  
   render() {
     return (
       <div id={this.props.name} code={this.props.code} className="drum-pad" style={this.state.pudStyle} onClick={this.playSound}>
@@ -99,7 +101,7 @@ class KeyBoard extends React.Component {
   
   render() {
     const arrToRender = soundLiblary.map(x => 
-    <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} volumeSound={this.props.volumeSound} />
+    <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} volumeSound={this.props.volumeSound} changeName={this.props.changeName} />
     );
     return (
       <div id="keyBoard">
@@ -130,17 +132,19 @@ class App extends React.Component {
       name: '',
       volumeSound: '0.3'
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeVolume = this.handleChangeVolume.bind(this);
+    this.changeName = this.changeName.bind(this);
   }
-  handleChange(event) {
-    this.setState({
-      volumeSound: event.target.value
-    });    
+  handleChangeVolume(event) {
+    this.setState({volumeSound: event.target.value});    
+  }
+  changeName(value) {
+    this.setState({name: value})
   }
   render() {
     return (
       <div id="drum-machine">
-        <KeyBoard volumeSound={this.state.volumeSound} />
+        <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} />
         <div id="controls">
           <Display volumeSound={this.state.volumeSound} name={this.state.name} />
           <div className="slider-wrapper">
@@ -149,7 +153,7 @@ class App extends React.Component {
               value={this.state.volumeSound} 
               min="0" max="1" 
               step="0.01" 
-              onChange={this.handleChange} /> 
+              onChange={this.handleChangeVolume} /> 
             </div> 
           </div>
       </div>
