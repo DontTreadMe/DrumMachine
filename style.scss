@@ -18,6 +18,7 @@ body {
   display: grid;
   grid-template-columns: $myWidyh $myWidyh $myWidyh;
   justify-content: center;
+  align-content: center;
   grid-gap: 10px;
   padding: 10px;
 }
@@ -62,9 +63,9 @@ i {
   font-style: italic;
 }
 #power {
-  width: 20px;
-  height: 20px;
-  border: 3px solid grey;
+  margin-left: 90%;
+  width: 30px;
+  height: 30px;
+  border: 5px solid grey;
   border-radius: 50%;
-  right: 0;
 }
