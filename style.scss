@@ -101,18 +101,5 @@ i {
   #drum-machine {
     flex-direction: row;
     max-width: $myWidyh*6;
-  }
-  #keyBoard {
-    grid-template-columns: $myWidyh $myWidyh $myWidyh;   
-    grid-gap: 10px;
-    padding: 10px;
-  }
-  .drum-pad {  
-    height: $myWidyh/2;
-    line-height: $myWidyh/2;    
-    font-size: 1.5em;
-  }
-  #power {
-    margin-left: inherit;  
-  }
+  }  
 } 
