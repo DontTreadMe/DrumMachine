@@ -2,13 +2,20 @@ $myWidyh: 120px;
 * {
   box-sizing: border-box;
 }
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;
+}
 body {
   background-color: LightCyan;
 }
 #drum-machine {
   display: flex;
+  flex-direction: column;
   background-color: #A6D2E3;
-  width: $myWidyh*6;
+  max-width: $myWidyh*3.6;
   margin: 2em auto;
   padding: 1em;
   border: 1px solid black;
@@ -16,21 +23,21 @@ body {
 }
 #keyBoard {
   display: grid;
-  grid-template-columns: $myWidyh $myWidyh $myWidyh;
+  grid-template-columns: $myWidyh/1.2 $myWidyh/1.2 $myWidyh/1.2;
   justify-content: center;
   align-content: center;
-  grid-gap: 10px;
-  padding: 10px;
+  grid-gap: 6px;
+  padding: 6px;
 }
 .drum-pad {  
-  height: $myWidyh/2;
-  line-height: $myWidyh/2;
+  height: $myWidyh/3;
+  line-height: $myWidyh/3;
   background-color: #496F99;
   border: 1px solid black;
   border-radius: 5px;
   text-align: center;
   box-shadow: 3px 3px 5px black;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: black;
 }
 .drum-pad:hover {
@@ -46,8 +53,8 @@ body {
 #display {
   margin: auto;
   text-align: left;
-  width: $myWidyh*2;
-  height: $myWidyh/1.1;
+  width: $myWidyh*1.6;
+  height: $myWidyh/1.9;
   background-color: #9FB4CC;
   font-size: 1.2em;
   padding: 1em;
@@ -69,3 +76,23 @@ i {
   border: 5px solid grey;
   border-radius: 50%;
 }
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  #drum-machine {
+    flex-direction: row;
+    max-width: $myWidyh*6;
+  }
+  #keyBoard {
+    grid-template-columns: $myWidyh $myWidyh $myWidyh;   
+    grid-gap: 10px;
+    padding: 10px;
+  }
+  .drum-pad {  
+    height: $myWidyh/2;
+    line-height: $myWidyh/2;    
+    font-size: 1.5em;
+  }
+  #power {
+    margin-left: inherit;  
+  }
+} 
