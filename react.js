@@ -136,7 +136,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       volumeSound: '0.3',
       infoToDisplay: greating,
       power: true
@@ -169,7 +168,7 @@ class App extends React.Component {
         <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} power={this.state.power} />
         <div id="controls">
           
-          <Display infoToDisplay={this.state.infoToDisplay} name={this.state.name} />
+          <Display infoToDisplay={this.state.infoToDisplay} />
           <div className="slider-wrapper">
               <input id="volumeSound" 
               type="range" 
