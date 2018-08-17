@@ -48,6 +48,8 @@ const soundLiblary =
 
 const activ = {backgroundColor: '#E1E0FF', boxShadow: 'none'};
 const inactiv = {backgroundColor: '#496F99', boxShadow: '3px 3px 5px black'};
+const powerOn = {backgroundColor: '#66ff33'};
+const powerOff = {backgroundColor: '#000'};
 
 class NumPad extends React.Component {
   constructor(props) {
@@ -64,13 +66,15 @@ class NumPad extends React.Component {
       this.playSound();
     }
   }
-  playSound() {    
-    const myAudio = document.getElementById(this.props.symbol);
-    myAudio.currentTyme = 0;
-    myAudio.volume = this.props.volumeSound;
-    myAudio.play();
-    this.handleStyle();
-    this.props.changeName(this.props.name);    
+  playSound() {
+    if (this.props.power) {
+      const myAudio = document.getElementById(this.props.symbol);
+      myAudio.currentTyme = 0;
+      myAudio.volume = this.props.volumeSound;
+      myAudio.play();
+      this.handleStyle();
+      this.props.changeName(this.props.name);
+    }
   }
   handleStyle() {
     this.setState({pudStyle: activ});
@@ -87,28 +91,21 @@ class NumPad extends React.Component {
     return (
       <div id={this.props.name} code={this.props.code} className="drum-pad" style={this.state.pudStyle} onClick={this.playSound}>
         <audio id={this.props.symbol} className="clip" preload="auto">
-          <source src={this.props.srcSound} type="audio/mpeg" preload="auto" />
+          <source src={this.props.srcSound} type="audio/mpeg" />
         </audio>
         {this.props.symbol}
       </div>
     );
   }
 }
-class KeyBoard extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    const arrToRender = soundLiblary.map(x => 
-    <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} volumeSound={this.props.volumeSound} changeName={this.props.changeName} />
-    );
-    return (
-      <div id="keyBoard">
-        {arrToRender}
-      </div>
-    );
-  }
+const KeyBoard = (props) => {  
+  const arrToRender = soundLiblary.map(x => 
+  <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} volumeSound={props.volumeSound} changeName={props.changeName} power={props.power} />);
+  return (
+    <div id="keyBoard">
+      {arrToRender}
+    </div>
+  );
 }
 
 const Display = (props) => {
@@ -125,13 +122,11 @@ const Display = (props) => {
   );
 }
 
-const Power = (props) => {
-  const powerOn = {backgroundColor: '#00ff00'};
-  const powerOff = {backgroundColor: '#000'};
+const Power = (props) => {  
   let powerStyle;
-  props.power ? powerStyle = powerOn : powerStyle = powerOff
+  props.power ? powerStyle = powerOn : powerStyle = powerOff;
   return (
-    <div id="power" onClick={props.handlePower} style={powerStyle} />
+    <div id="power" onClick={props.handlePower} style={powerStyle} /> 
   );
 }
 
@@ -148,10 +143,12 @@ class App extends React.Component {
     this.handlePower = this.handlePower.bind(this);
   }
   handleChangeVolume(event) {
-    this.setState({volumeSound: event.target.value});
+    if (this.state.power) {
+      this.setState({volumeSound: event.target.value});
+    }
   }
   changeName(value) {
-    this.setState({name: value})
+    this.setState({name: value});
   }
   handlePower() {
     this.setState({power: !this.state.power});
@@ -159,7 +156,7 @@ class App extends React.Component {
   render() {
     return (
       <div id="drum-machine">
-        <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} />
+        <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} power={this.state.power} />
         <div id="controls">
           <Power handlePower={this.handlePower} power={this.state.power} />
           <Display volumeSound={this.state.volumeSound} name={this.state.name} />
