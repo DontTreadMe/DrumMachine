@@ -50,7 +50,7 @@ const activ = {backgroundColor: '#E1E0FF', boxShadow: 'none'};
 const inactiv = {backgroundColor: '#496F99', boxShadow: '3px 3px 5px black'};
 const powerOn = {backgroundColor: '#66ff33'};
 const powerOff = {backgroundColor: '#000'};
-const greating = 'WELCOME';
+const greating = 'WELCOME!';
 
 class NumPad extends React.Component {
   constructor(props) {
@@ -168,7 +168,7 @@ class App extends React.Component {
       <div id="drum-machine">
         <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} power={this.state.power} />
         <div id="controls">
-          <Power handlePower={this.handlePower} power={this.state.power} />
+          
           <Display infoToDisplay={this.state.infoToDisplay} name={this.state.name} />
           <div className="slider-wrapper">
               <input id="volumeSound" 
@@ -179,6 +179,7 @@ class App extends React.Component {
               onChange={this.handleChangeVolume} /> 
             </div> 
           </div>
+        <Power handlePower={this.handlePower} power={this.state.power} />
       </div>
     );
   }
