@@ -50,6 +50,7 @@ const activ = {backgroundColor: '#E1E0FF', boxShadow: 'none'};
 const inactiv = {backgroundColor: '#496F99', boxShadow: '3px 3px 5px black'};
 const powerOn = {backgroundColor: '#66ff33'};
 const powerOff = {backgroundColor: '#000'};
+const greating = 'WELCOME';
 
 class NumPad extends React.Component {
   constructor(props) {
@@ -109,14 +110,15 @@ const KeyBoard = (props) => {
 }
 
 const Display = (props) => {
+  let toDisplay;
+  props.infoToDisplay === '' ? toDisplay = '' :  props.infoToDisplay === 
+  greating ? toDisplay = props.infoToDisplay : Number(props.infoToDisplay) ? 
+  toDisplay = `volume: ${Math.round(props.infoToDisplay * 100)}` : toDisplay = 
+  `track: ${props.infoToDisplay}`;
   return (
     <div id="display">
       <div> 
-        <i>volume: {Math.round(props.volumeSound * 100)}</i>
-      </div>
-      <hr />
-      <div> 
-        <i>track: {props.name} </i>
+        <i>{toDisplay}</i>
       </div>
     </div>
   );
@@ -136,6 +138,7 @@ class App extends React.Component {
     this.state = {
       name: '',
       volumeSound: '0.3',
+      infoToDisplay: greating,
       power: true
     }
     this.handleChangeVolume = this.handleChangeVolume.bind(this);
@@ -144,14 +147,21 @@ class App extends React.Component {
   }
   handleChangeVolume(event) {
     if (this.state.power) {
-      this.setState({volumeSound: event.target.value});
+      this.setState({
+        volumeSound: event.target.value, 
+        infoToDisplay: event.target.value
+      });
+      setTimeout(() => this.setState({infoToDisplay: ''}), 1500)
     }
   }
   changeName(value) {
-    this.setState({name: value});
+    this.setState({name: value, infoToDisplay: value});
   }
   handlePower() {
-    this.setState({power: !this.state.power});
+    this.setState({power: !this.state.power}, () => this.state.power ? 
+    this.setState({infoToDisplay: greating}) : 
+    this.setState({infoToDisplay: ''}));
+    
   }
   render() {
     return (
@@ -159,7 +169,7 @@ class App extends React.Component {
         <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} power={this.state.power} />
         <div id="controls">
           <Power handlePower={this.handlePower} power={this.state.power} />
-          <Display volumeSound={this.state.volumeSound} name={this.state.name} />
+          <Display infoToDisplay={this.state.infoToDisplay} name={this.state.name} />
           <div className="slider-wrapper">
               <input id="volumeSound" 
               type="range" 
