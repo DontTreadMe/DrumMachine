@@ -45,7 +45,6 @@ const soundLiblary =
    name: 'kiss',
    srcSound: 'http://static1.grsites.com/archive/sounds/cartoon/cartoon003.mp3'
  }];
-
 const activ = {backgroundColor: '#E1E0FF', boxShadow: 'none'};
 const inactiv = {backgroundColor: '#496F99', boxShadow: '3px 3px 5px black'};
 const powerOn = {backgroundColor: '#66ff33'};
@@ -86,11 +85,11 @@ class NumPad extends React.Component {
   }  
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKeyDown);
-  }
-  
+  }  
   render() {
     return (
-      <div id={this.props.name} code={this.props.code} className="drum-pad" style={this.state.pudStyle} onClick={this.playSound}>
+      <div id={this.props.name} code={this.props.code} className="drum-pad" 
+        style={this.state.pudStyle} onClick={this.playSound}>
         <audio id={this.props.symbol} className="clip" preload="auto">
           <source src={this.props.srcSound} type="audio/mpeg" />
         </audio>
@@ -101,7 +100,8 @@ class NumPad extends React.Component {
 }
 const KeyBoard = (props) => {  
   const arrToRender = soundLiblary.map(x => 
-  <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} volumeSound={props.volumeSound} changeName={props.changeName} power={props.power} />);
+  <NumPad name={x.name} code={x.code} symbol={x.symbol} srcSound={x.srcSound} 
+    volumeSound={props.volumeSound} changeName={props.changeName} power={props.power} />);
   return (
     <div id="keyBoard">
       {arrToRender}
@@ -150,7 +150,7 @@ class App extends React.Component {
         volumeSound: event.target.value, 
         infoToDisplay: event.target.value
       });
-      setTimeout(() => this.setState({infoToDisplay: ''}), 1500)
+      setTimeout(() => this.setState({infoToDisplay: ''}), 1500);
     }
   }
   changeName(value) {
@@ -159,15 +159,14 @@ class App extends React.Component {
   handlePower() {
     this.setState({power: !this.state.power}, () => this.state.power ? 
     this.setState({infoToDisplay: greating}) : 
-    this.setState({infoToDisplay: ''}));
-    
+    this.setState({infoToDisplay: ''}));    
   }
   render() {
     return (
       <div id="drum-machine">
-        <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} power={this.state.power} />
-        <div id="controls">
-          
+        <KeyBoard volumeSound={this.state.volumeSound} changeName={this.changeName} 
+          power={this.state.power} />
+        <div id="controls">          
           <Display infoToDisplay={this.state.infoToDisplay} />
           <div className="slider-wrapper">
               <input id="volumeSound" 
